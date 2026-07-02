@@ -1,0 +1,13 @@
+{
+  "name": "face-recognition-attendance-system",
+  "version": "1.0.0",
+  "description": "Full-stack JS Face Recognition Attendance System",
+  "scripts": {
+    "backend": "cd backend && npm run dev",
+    "frontend": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3"
+  }
+}
