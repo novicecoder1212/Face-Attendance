@@ -258,7 +258,15 @@ app.post('/api/attendance/mark', async (req, res) => {
   }
 
   try {
-    const todayStr = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    // Force Indian Standard Time (IST = UTC + 5:30) timezone calculations
+    const now = new Date();
+    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+    const istTime = new Date(utc + (3600000 * 5.5));
+
+    const pad = (n) => String(n).padStart(2, '0');
+    const todayStr = `${istTime.getFullYear()}-${pad(istTime.getMonth() + 1)}-${pad(istTime.getDate())}`; // YYYY-MM-DD in IST
+    const dateTimeStr = `${todayStr} ${pad(istTime.getHours())}:${pad(istTime.getMinutes())}:${pad(istTime.getSeconds())}`; // YYYY-MM-DD HH:MM:SS in IST
+
     const logs = await Attendance.find({ id });
 
     // Check if already marked today
@@ -266,11 +274,6 @@ app.post('/api/attendance/mark', async (req, res) => {
     if (alreadyMarked) {
       return res.status(200).json({ message: 'Attendance already marked today', duplicate: true });
     }
-
-    // Format Date_Time like: YYYY-MM-DD HH:MM:SS
-    const now = new Date();
-    const pad = (n) => String(n).padStart(2, '0');
-    const dateTimeStr = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
 
     const newLog = await Attendance.create({ id, name, dateTime: dateTimeStr });
 
