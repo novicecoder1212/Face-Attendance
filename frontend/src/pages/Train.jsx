@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Cpu, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { loadModels, faceapi } from '../utils/faceApiHelper';
+import { API_URL } from '../utils/api';
 
 function Train() {
   const [folders, setFolders] = useState([]);
@@ -30,7 +31,7 @@ function Train() {
       setStatus(prev => ({ ...prev, modelLoading: false }));
 
       // Fetch folders from TrainingImage
-      const foldersRes = await fetch('http://localhost:5000/api/images-folders');
+      const foldersRes = await fetch(`${API_URL}/api/images-folders`);
       const folderData = await foldersRes.json();
       setFolders(folderData);
 
@@ -39,7 +40,7 @@ function Train() {
       }
 
       // Fetch already trained embeddings to see who is trained
-      const embedRes = await fetch('http://localhost:5000/api/embeddings');
+      const embedRes = await fetch(`${API_URL}/api/embeddings`);
       const embedData = await embedRes.json();
       const trainedSet = new Set(embedData.map(e => e.id));
       setTrainedList(trainedSet);
@@ -75,7 +76,7 @@ function Train() {
 
     try {
       // 1. Fetch training images URLs from backend
-      const imagesRes = await fetch(`http://localhost:5000/api/images/${selectedPerson}`);
+      const imagesRes = await fetch(`${API_URL}/api/images/${selectedPerson}`);
       const relativeUrls = await imagesRes.json();
       
       if (relativeUrls.length === 0) {
@@ -90,7 +91,7 @@ function Train() {
 
       // 2. Loop through each image, load it, detect face and get descriptors
       for (let i = 0; i < relativeUrls.length; i++) {
-        const url = `http://localhost:5000${relativeUrls[i]}`;
+        const url = `${API_URL}${relativeUrls[i]}`;
         const fileName = relativeUrls[i].split('/').pop();
 
         appendLog(`Processing image ${i + 1}/${relativeUrls.length}: ${fileName}`);
@@ -140,7 +141,7 @@ function Train() {
 
       appendLog('Syncing embeddings database with the backend...');
       
-      const syncRes = await fetch('http://localhost:5000/api/embeddings/sync', {
+      const syncRes = await fetch(`${API_URL}/api/embeddings/sync`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

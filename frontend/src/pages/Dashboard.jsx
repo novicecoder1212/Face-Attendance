@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Users, FileSpreadsheet, ClipboardList, Info, HelpCircle } from 'lucide-react';
+import { API_URL } from '../utils/api';
 
 function Dashboard() {
   const [stats, setStats] = useState({
@@ -12,10 +13,10 @@ function Dashboard() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const usersRes = await fetch('http://localhost:5000/api/users');
+        const usersRes = await fetch(`${API_URL}/api/users`);
         const users = await usersRes.json();
         
-        const attendanceRes = await fetch('http://localhost:5000/api/attendance');
+        const attendanceRes = await fetch(`${API_URL}/api/attendance`);
         const records = await attendanceRes.json();
 
         setStats({

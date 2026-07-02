@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Settings, Trash2, ShieldAlert, CheckCircle2, UserMinus, Loader2 } from 'lucide-react';
+import { API_URL } from '../utils/api';
 
 function ManageEmbeddings() {
   const [users, setUsers] = useState([]);
@@ -12,7 +13,7 @@ function ManageEmbeddings() {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const res = await fetch('http://localhost:5000/api/users');
+      const res = await fetch(`${API_URL}/api/users`);
       const data = await res.json();
       setUsers(data);
       setLoading(false);
@@ -31,7 +32,7 @@ function ManageEmbeddings() {
     if (!confirm) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
+      const res = await fetch(`${API_URL}/api/users/${userId}`, {
         method: 'DELETE'
       });
       const data = await res.json();
@@ -53,7 +54,7 @@ function ManageEmbeddings() {
     if (!confirm) return;
 
     try {
-      const res = await fetch('http://localhost:5000/api/embeddings', {
+      const res = await fetch(`${API_URL}/api/embeddings`, {
         method: 'DELETE'
       });
       const data = await res.json();

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Database, Download, Search, RefreshCw, Calendar, Loader2 } from 'lucide-react';
+import { API_URL } from '../utils/api';
 
 function ViewRecords() {
   const [records, setRecords] = useState([]);
@@ -9,7 +10,7 @@ function ViewRecords() {
   const fetchRecords = async () => {
     try {
       setLoading(true);
-      const res = await fetch('http://localhost:5000/api/attendance');
+      const res = await fetch(`${API_URL}/api/attendance`);
       const data = await res.json();
       // Sort newest records first
       const sorted = data.reverse();

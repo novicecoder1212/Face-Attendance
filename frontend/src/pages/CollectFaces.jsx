@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Camera, AlertCircle, CheckCircle, Loader2 } from 'lucide-react';
 import { loadModels, faceapi } from '../utils/faceApiHelper';
+import { API_URL } from '../utils/api';
 
 function CollectFaces() {
   const navigate = useNavigate();
@@ -92,7 +93,7 @@ function CollectFaces() {
       setStatus(prev => ({ ...prev, error: '', success: '', capturing: true, count: 0 }));
 
       // 1. Register student details on the backend
-      const regRes = await fetch('http://localhost:5000/api/users/register', {
+      const regRes = await fetch(`${API_URL}/api/users/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: personId, name: name.trim() })
@@ -148,7 +149,7 @@ function CollectFaces() {
           const base64Image = tempCanvas.toDataURL('image/jpeg', 0.9);
 
           // Save image asynchronously to server
-          fetch('http://localhost:5000/api/images/save', {
+          fetch(`${API_URL}/api/images/save`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

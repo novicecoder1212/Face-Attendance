@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { CheckSquare, AlertCircle, CheckCircle2, Loader2, Play, Square } from 'lucide-react';
 import { loadModels, faceapi } from '../utils/faceApiHelper';
+import { API_URL } from '../utils/api';
 
 function MarkAttendance() {
   const [loading, setLoading] = useState({
@@ -39,7 +40,7 @@ function MarkAttendance() {
         setLoading(prev => ({ ...prev, models: false }));
 
         // Load embeddings from backend
-        const embedRes = await fetch('http://localhost:5000/api/embeddings');
+        const embedRes = await fetch(`${API_URL}/api/embeddings`);
         const embedData = await embedRes.json();
 
         if (embedData.length === 0) {
@@ -310,7 +311,7 @@ function MarkAttendance() {
 
   const handleMarkAttendance = async (userId, userName) => {
     try {
-      const res = await fetch('http://localhost:5000/api/attendance/mark', {
+      const res = await fetch(`${API_URL}/api/attendance/mark`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: userId, name: userName })
