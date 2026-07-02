@@ -297,7 +297,13 @@ function CollectFaces() {
 
           {/* Camera Feed Screen */}
           <div className="glass-card flex-center" style={{ flexDirection: 'column' }}>
-            <div className="camera-wrapper">
+            <div className={`camera-wrapper ${status.cameraActive ? 'pulse-glow-active' : ''}`}>
+              <div className="hud-corner hud-tl"></div>
+              <div className="hud-corner hud-tr"></div>
+              <div className="hud-corner hud-bl"></div>
+              <div className="hud-corner hud-br"></div>
+              {status.capturing && <div className="scan-line"></div>}
+
               <video
                 ref={videoRef}
                 className="webcam-feed"

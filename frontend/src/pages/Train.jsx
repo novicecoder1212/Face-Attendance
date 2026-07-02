@@ -307,7 +307,12 @@ function Train() {
               {status.log.length === 0 ? (
                 <span style={{ color: 'var(--text-muted)' }}>Console is ready. Select a dataset and start training to output logs.</span>
               ) : (
-                status.log.map((line, idx) => <span key={idx}>{line}</span>)
+                status.log.map((line, idx) => (
+                  <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', marginBottom: '2px' }}>
+                    <span className="log-pulse-dot"></span>
+                    <span>{line}</span>
+                  </div>
+                ))
               )}
             </div>
           </div>

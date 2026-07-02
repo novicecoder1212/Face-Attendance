@@ -1,0 +1,91 @@
+================================================================================
+          FACE RECOGNITION ATTENDANCE SYSTEM WITH CLOUD INTEGRATION
+================================================================================
+
+1. PROJECT OVERVIEW
+--------------------------------------------------------------------------------
+This project is a modern, full-stack Face Recognition Attendance System with 
+complete cloud integration. It features a React-based frontend web portal, a 
+Node.js/Express API backend, and a MongoDB Atlas cloud database. The system
+handles real-time face registration, client-side neural network training, 
+liveness verification (blink and head movement detection), and automatic attendance 
+logging.
+
+2. CORE TECHNOLOGIES USED
+--------------------------------------------------------------------------------
+* FRONTEND:
+  - React.js (built on Vite for lightning-fast compilation and execution)
+  - CSS3 (Vanilla design system with dark mode glassmorphism)
+  - Lucide React (vector icons library)
+
+* MACHINE LEARNING & FACE RECOGNITION:
+  - Face-API.js (Browser-based face detection and recognition using TensorFlow.js)
+  - SSD MobileNet v1 (Pre-trained CNN model for high-accuracy face detection)
+  - 68 Point Face Landmark Detection (Extracts facial features and eye coordinates)
+  - ResNet-34 (Generates 128-dimensional face feature vectors/embeddings)
+
+* BACKEND:
+  - Node.js (JavaScript runtime)
+  - Express.js (REST API framework)
+  - CORS (Cross-Origin Resource Sharing middleware)
+  - Dotenv (Environment configuration manager)
+
+* DATABASE:
+  - MongoDB Atlas (Managed Cloud Database Service)
+  - Mongoose (Object Data Modeling for Node.js / Schema structure)
+
+* CLOUD HOSTING PLATFORMS:
+  - Render (Hosts the live Express API Server)
+  - Netlify (Hosts the compiled React frontend Web App)
+  - GitHub (Version control and automated deployment pipeline)
+
+3. SYSTEM FUNCTIONALITIES
+--------------------------------------------------------------------------------
+* 1. CLOUD DATABASE SYNC & MIGRATION:
+  - Built-in seeder logic that automatically converts old local JSON datasets 
+    (users, embeddings, and attendance) to MongoDB Atlas on initial startup.
+  - Keeps data synced across all connected devices in real time.
+
+* 2. STUDENT REGISTRATION PORTAL:
+  - Registers student profiles under a unique combination of University ID 
+    and Student Name.
+  - Automatically structures folders in the database to receive captured photo frames.
+
+* 3. REAL-TIME FACE IMAGE CAPTURE:
+  - Activates webcam stream inside the browser.
+  - Automatically captures 50 raw photo frames only when a valid face is detected.
+  - Stores captured frames inside the cloud/local datasets.
+
+* 4. BROWSER-BASED NEURAL NETWORK TRAINING:
+  - Downloads model weights from a CDN and runs face descriptor calculations 
+    using the client device's GPU/CPU.
+  - Extracts 128-dimensional facial embeddings for each student.
+  - Syncs the trained descriptors back to the MongoDB Atlas cloud database.
+  - Zero heavy server-side processing required, ensuring scalability.
+
+* 5. WEBCAM FACE SCANNER & LIVENESS PORTAL:
+  - Real-time scanner compares live camera faces with the cloud embeddings database.
+  - EYE ASPECT RATIO (EAR) CALCULATIONS: Tracks distance between eyelids to 
+    detect natural blinks.
+  - HEAD MOVEMENT CALCULATIONS: Tracks nose coordinate shifts to verify physical 
+    head movement.
+  - Prevents photo/screen spoofing: Attendance is only marked AFTER liveness 
+    checks are verified.
+
+* 6. CALIBRATED MATCH THRESHOLD:
+  - Adjustable slider range (0.30 - 0.70) to modify the sensitivity of facial 
+    matching (Euclidean distance threshold) directly in the UI.
+
+* 7. HISTORICAL LOG VIEWERS & CSV EXPORT:
+  - Tracks all marked attendance records with searchable indexing.
+  - Exports logged attendance data directly to a `.csv` Excel file.
+
+* 8. INDIAN STANDARD TIME (IST) ALIGNMENT:
+  - Automatically calculates and offsets timestamps to Indian Standard Time 
+    (IST, UTC+5:30) regardless of the country where the cloud servers reside.
+
+* 9. FULLY RESPONSIVE MOBILE LAYOUT:
+  - Custom mobile viewport styles that adapt index elements for mobile phones.
+  - Collapses sidebar into horizontal navigations, stacks forms, and auto-scales 
+    camera feeds.
+================================================================================

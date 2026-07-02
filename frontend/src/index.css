@@ -533,6 +533,110 @@ body {
   justify-content: center;
 }
 
+/* ================= FUTURISTIC CAMERA HUD & RADAR OVERLAY ================= */
+.camera-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Radar Scan Line animation */
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0) 0%, var(--primary) 50%, rgba(139, 92, 246, 0) 100%);
+  box-shadow: 0 0 8px var(--primary), 0 0 15px var(--primary);
+  opacity: 0.85;
+  z-index: 5;
+  animation: scan 2.5s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scan {
+  0% { top: 0%; }
+  50% { top: 100%; }
+  100% { top: 0%; }
+}
+
+/* Corner HUD accents */
+.hud-corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-color: var(--primary-hover);
+  border-style: solid;
+  pointer-events: none;
+  z-index: 10;
+  filter: drop-shadow(0 0 4px var(--primary));
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+.hud-tl { top: 12px; left: 12px; border-width: 3px 0 0 3px; border-top-left-radius: 4px; }
+.hud-tr { top: 12px; right: 12px; border-width: 3px 3px 0 0; border-top-right-radius: 4px; }
+.hud-bl { bottom: 12px; left: 12px; border-width: 0 0 3px 3px; border-bottom-left-radius: 4px; }
+.hud-br { bottom: 12px; right: 12px; border-width: 0 3px 3px 0; border-bottom-right-radius: 4px; }
+
+/* Pulse animation for active camera */
+.pulse-glow-active {
+  animation: pulseGlow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 8px rgba(139, 92, 246, 0.2); }
+  100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.7); }
+}
+
+/* Sidebar navigation slider line */
+.nav-item a {
+  position: relative;
+}
+
+.nav-item a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: var(--primary);
+  transform: scaleY(0);
+  transition: transform 0.2s ease;
+  border-radius: 0 4px 4px 0;
+}
+
+.nav-item.active a::before {
+  transform: scaleY(1);
+}
+
+.nav-item a:hover::before {
+  transform: scaleY(0.5);
+}
+
+/* Refresh rotate animation */
+.btn-secondary:hover svg {
+  transform: rotate(180deg);
+}
+
+/* Pulsing dot for status logs */
+.log-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--primary-hover);
+  box-shadow: 0 0 6px var(--primary);
+  display: inline-block;
+  margin-right: 0.5rem;
+  animation: pulseLight 1.5s infinite alternate;
+}
+
+@keyframes pulseLight {
+  0% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+
 /* ================= MOBILE RESPONSIVENESS ================= */
 @media (max-width: 768px) {
   .app-container {
