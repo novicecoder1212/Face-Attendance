@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import { 
   LayoutDashboard, 
@@ -7,7 +7,9 @@ import {
   CheckSquare, 
   Database, 
   Settings,
-  LogOut
+  LogOut,
+  Sun,
+  Moon
 } from 'lucide-react';
 
 import Dashboard from './pages/Dashboard';
@@ -79,6 +81,22 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem('teacherLoggedIn') === 'true'
   );
+
+  const [isDarkMode, setIsDarkMode] = useState(
+    localStorage.getItem('theme') === 'dark'
+  );
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDarkMode]);
 
   const handleLogin = () => {
     localStorage.setItem('teacherLoggedIn', 'true');
@@ -155,18 +173,66 @@ function App() {
                 </NavLink>
               </li>
             </ul>
-
-            <div className="logout-btn-container">
-              <button className="logout-btn" onClick={handleLogout}>
-                <LogOut size={16} />
-                <span>Log Out</span>
-              </button>
-            </div>
           </nav>
         </aside>
 
         {/* Main Content Area */}
-        <main className="main-content">
+        <main className="main-content" style={{ position: 'relative' }}>
+          {/* User Profile Circular Dropdown Trigger */}
+          <div className="profile-menu-container">
+            <button 
+              className="profile-avatar-btn" 
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              title="Teacher Portal Options"
+            >
+              T
+            </button>
+            
+            {dropdownOpen && (
+              <div className="profile-dropdown-card">
+                <div className="profile-details">
+                  <div className="profile-name">Prof. RK Sen</div>
+                  <div className="profile-role">Authorized Teacher</div>
+                  <div className="profile-dept">Computer Science & Eng.</div>
+                </div>
+                
+                <div className="dropdown-item">
+                  <span className="dropdown-label">Theme Mode</span>
+                  <button 
+                    className="theme-switch-btn" 
+                    onClick={() => setIsDarkMode(!isDarkMode)}
+                  >
+                    {isDarkMode ? (
+                      <>
+                        <Sun size={14} color="#fca5a5" />
+                        <span>Day Mode</span>
+                      </>
+                    ) : (
+                      <>
+                        <Moon size={14} color="#3b82f6" />
+                        <span>Night Mode</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                <div className="sidebar-divider" style={{ margin: '0.25rem 0', background: 'var(--card-border)' }}></div>
+                
+                <button 
+                  className="logout-btn" 
+                  onClick={() => {
+                    setDropdownOpen(false);
+                    handleLogout();
+                  }}
+                  style={{ padding: '0.65rem 1rem', fontSize: '0.85rem' }}
+                >
+                  <LogOut size={14} />
+                  <span>Log Out</span>
+                </button>
+              </div>
+            )}
+          </div>
+
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/collect" element={<CollectFaces />} />
