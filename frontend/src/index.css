@@ -853,8 +853,8 @@ body {
 
 /* ================= PROFILE CIRCLE MENU & DROP-DOWN ================= */
 .profile-menu-container {
-  position: fixed;
-  bottom: 2rem;
+  position: absolute;
+  top: 1.5rem;
   right: 2.5rem;
   z-index: 1000;
 }
@@ -972,17 +972,11 @@ body.dark .theme-switch-btn:hover {
 /* Adjust main content on mobile to accommodate profile circle */
 @media (max-width: 768px) {
   .profile-menu-container {
-    position: fixed;
-    bottom: 1.5rem;
+    position: absolute;
+    top: 1rem;
     right: 1.5rem;
     margin: 0;
     z-index: 1000;
-  }
-  
-  .profile-dropdown-card {
-    right: 0;
-    transform: none;
-    bottom: 54px;
   }
 }
 

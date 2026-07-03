@@ -87,8 +87,6 @@ function App() {
     localStorage.getItem('theme') === 'dark'
   );
 
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
   useEffect(() => {
     if (isDarkMode) {
       document.body.classList.add('dark');
@@ -206,35 +204,12 @@ function App() {
           <div className="profile-menu-container">
             <button 
               className="profile-avatar-btn" 
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-              title="Theme Switch Options"
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
-              <User size={18} />
+              {isDarkMode ? <Sun size={18} color="#fef08a" /> : <Moon size={18} color="#ffffff" />}
             </button>
-            
-            {dropdownOpen && (
-              <div className="profile-dropdown-card" style={{ width: '220px' }}>
-                <div className="dropdown-item" style={{ padding: '0.25rem 0' }}>
-                  <span className="dropdown-label">Theme Mode</span>
-                  <button 
-                    className="theme-switch-btn" 
-                    onClick={() => setIsDarkMode(!isDarkMode)}
-                  >
-                    {isDarkMode ? (
-                      <>
-                        <Sun size={14} color="#fca5a5" />
-                        <span>Day Mode</span>
-                      </>
-                    ) : (
-                      <>
-                        <Moon size={14} color="#3b82f6" />
-                        <span>Night Mode</span>
-                      </>
-                    )}
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
 
           <Routes>
