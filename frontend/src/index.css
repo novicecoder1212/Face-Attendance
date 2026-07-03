@@ -18,6 +18,8 @@
   --header-bg: #ffffff;
   --input-bg: #ffffff;
   --input-border: rgba(0, 0, 0, 0.15);
+  --table-header-bg: rgba(46, 48, 146, 0.06);
+  --table-header-text: var(--primary);
 }
 
 /* ================= DARK MODE OVERRIDES ================= */
@@ -32,6 +34,8 @@ body.dark {
   --header-bg: rgba(13, 20, 35, 0.7);
   --input-bg: rgba(9, 13, 22, 0.5);
   --input-border: rgba(255, 255, 255, 0.1);
+  --table-header-bg: rgba(9, 13, 22, 0.6);
+  --table-header-text: #93c5fd;
 }
 
 * {
@@ -469,10 +473,10 @@ body {
 }
 
 .custom-table th {
-  background: rgba(9, 13, 22, 0.5);
+  background: var(--table-header-bg);
   padding: 1rem 1.25rem;
   font-weight: 600;
-  color: var(--primary-hover);
+  color: var(--table-header-text);
   border-bottom: 1px solid var(--card-border);
 }
 

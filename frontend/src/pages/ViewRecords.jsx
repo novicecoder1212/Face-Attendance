@@ -136,7 +136,7 @@ function ViewRecords() {
               <tbody>
                 {filteredRecords.map((rec, index) => (
                   <tr key={index}>
-                    <td style={{ fontWeight: 600, color: '#f8fafc' }}>
+                    <td style={{ fontWeight: 600, color: 'var(--text-main)' }}>
                       {rec.id.includes('_') ? rec.id.split('_')[0] : rec.id}
                     </td>
                     <td>{rec.name}</td>
