@@ -269,8 +269,8 @@ function MarkAttendance() {
         const rightEAR = calculateEAR(rightEye);
         const avgEAR = (leftEAR + rightEAR) / 2.0;
 
-        // Check closed threshold
-        if (avgEAR < 0.22) {
+        // Lenient threshold: closed < 0.23, open > 0.26 to accommodate all eye shape variations
+        if (avgEAR < 0.23) {
           mem.eyeClosed = true;
         } else if (avgEAR > 0.26 && mem.eyeClosed) {
           // Eyes open again -> Blink registered!
@@ -279,23 +279,26 @@ function MarkAttendance() {
           console.log(`Blink registered for ${recognizedName}. Total blinks: ${mem.blinkCount}`);
         }
 
-        // B. Head Movement Check
+        // B. Head Movement Check (Normalized by Face Bounding Box width)
         const nose = landmarks.getNose();
-        // Nose tip coordinate is typically nose[3]
         const noseTipX = nose[3].x;
-        mem.noseCoords.push(noseTipX);
+        // Calculate nose tip position relative to left and right boundary of face box
+        const noseRatio = (noseTipX - box.x) / box.width; 
+        mem.noseCoords.push(noseRatio);
         
-        if (mem.noseCoords.length > 20) {
+        // Use 60-frame history window to allow natural-speed turns
+        if (mem.noseCoords.length > 60) {
           mem.noseCoords.shift();
         }
 
         let isMoving = false;
-        if (mem.noseCoords.length >= 3) {
-          const maxNoseX = Math.max(...mem.noseCoords);
-          const minNoseX = Math.min(...mem.noseCoords);
-          const movement = maxNoseX - minNoseX;
+        if (mem.noseCoords.length >= 10) {
+          const maxNoseRatio = Math.max(...mem.noseCoords);
+          const minNoseRatio = Math.min(...mem.noseCoords);
+          const ratioDelta = maxNoseRatio - minNoseRatio;
           
-          if (movement > 15) {
+          // If nose tip moves horizontally by more than 6% of the face bounding box width
+          if (ratioDelta > 0.06) {
             isMoving = true;
           }
         }
