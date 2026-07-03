@@ -853,8 +853,8 @@ body {
 
 /* ================= PROFILE CIRCLE MENU & DROP-DOWN ================= */
 .profile-menu-container {
-  position: absolute;
-  top: 1.5rem;
+  position: fixed;
+  bottom: 2rem;
   right: 2.5rem;
   z-index: 1000;
 }
@@ -884,7 +884,7 @@ body {
 
 .profile-dropdown-card {
   position: absolute;
-  top: 54px;
+  bottom: 54px; /* Open upwards */
   right: 0;
   width: 280px;
   background: var(--card-bg);
@@ -972,18 +972,17 @@ body.dark .theme-switch-btn:hover {
 /* Adjust main content on mobile to accommodate profile circle */
 @media (max-width: 768px) {
   .profile-menu-container {
-    position: relative;
-    top: 0;
-    right: 0;
-    margin: 1rem auto;
-    display: flex;
-    justify-content: center;
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    margin: 0;
+    z-index: 1000;
   }
   
   .profile-dropdown-card {
-    right: 50%;
-    transform: translateX(50%);
-    top: 50px;
+    right: 0;
+    transform: none;
+    bottom: 54px;
   }
 }
 

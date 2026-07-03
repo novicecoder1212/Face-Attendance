@@ -173,6 +173,41 @@ function App() {
                 </NavLink>
               </li>
             </ul>
+
+            <div className="theme-switch-sidebar-container" style={{ marginTop: 'auto', paddingTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.12)' }}>
+              <button 
+                className="theme-switch-btn" 
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.75rem',
+                  width: '100%',
+                  padding: '0.85rem 1.25rem',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  color: '#ffffff',
+                  borderRadius: '12px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  fontFamily: 'var(--font-main)'
+                }}
+              >
+                {isDarkMode ? (
+                  <>
+                    <Sun size={16} color="#fca5a5" />
+                    <span>Day Mode</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon size={16} color="#93c5fd" />
+                    <span>Night Mode</span>
+                  </>
+                )}
+              </button>
+            </div>
           </nav>
         </aside>
 
@@ -192,28 +227,8 @@ function App() {
               <div className="profile-dropdown-card">
                 <div className="profile-details">
                   <div className="profile-name">Prof. RK Sen</div>
-                  <div className="profile-role">Authorized Teacher</div>
+                  <div className="profile-role">Assistant Professor</div>
                   <div className="profile-dept">Computer Science & Eng.</div>
-                </div>
-                
-                <div className="dropdown-item">
-                  <span className="dropdown-label">Theme Mode</span>
-                  <button 
-                    className="theme-switch-btn" 
-                    onClick={() => setIsDarkMode(!isDarkMode)}
-                  >
-                    {isDarkMode ? (
-                      <>
-                        <Sun size={14} color="#fca5a5" />
-                        <span>Day Mode</span>
-                      </>
-                    ) : (
-                      <>
-                        <Moon size={14} color="#3b82f6" />
-                        <span>Night Mode</span>
-                      </>
-                    )}
-                  </button>
                 </div>
 
                 <div className="sidebar-divider" style={{ margin: '0.25rem 0', background: 'var(--card-border)' }}></div>
