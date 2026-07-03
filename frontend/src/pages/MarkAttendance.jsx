@@ -3,6 +3,44 @@ import { CheckSquare, AlertCircle, CheckCircle2, Loader2, Play, Square } from 'l
 import { loadModels, faceapi } from '../utils/faceApiHelper';
 import { API_URL } from '../utils/api';
 
+const speak = (text) => {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+    window.speechSynthesis.speak(utterance);
+  }
+};
+
+const playBeep = (type = 'success') => {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    
+    if (type === 'success') {
+      osc.frequency.setValueAtTime(660, ctx.currentTime);
+      gain.gain.setValueAtTime(0.08, ctx.currentTime);
+      osc.start();
+      osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.12);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+      osc.stop(ctx.currentTime + 0.12);
+    } else {
+      osc.frequency.setValueAtTime(300, ctx.currentTime);
+      gain.gain.setValueAtTime(0.08, ctx.currentTime);
+      osc.start();
+      osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.2);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+      osc.stop(ctx.currentTime + 0.2);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 function MarkAttendance() {
   const [loading, setLoading] = useState({
     models: true,
@@ -321,12 +359,16 @@ function MarkAttendance() {
       if (!res.ok) throw new Error(data.error);
 
       if (data.duplicate) {
+        playBeep('warning');
+        speak(`${userName} has already marked attendance today.`);
         setAttendanceState(prev => ({
           ...prev,
           statusMessage: `✓ ${userName} has already marked attendance today.`,
           statusType: 'warning'
         }));
       } else {
+        playBeep('success');
+        speak(`Attendance recorded for ${userName}.`);
         setAttendanceState(prev => {
           const updated = new Set(prev.markedUsers);
           updated.add(userId);
