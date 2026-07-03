@@ -36,16 +36,42 @@ function Dashboard() {
   return (
     <div className="animate-fade-in">
       {/* Institution Banner */}
-      <div className="institute-header">
-        <p className="main-header">✨ Face Recognition Attendance System ✨</p>
-        <h1 className="sub-header">B.P. Poddar Institute of Management & Technology</h1>
-        <p className="sub-header-muted">Approved by AICTE, New Delhi & Affiliated to MAKAUT, W.B</p>
+      <div className="institute-header" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', padding: '3rem 2rem' }}>
+        <img 
+          src="/bppimt_logo.png" 
+          className="institute-logo" 
+          alt="BPPIMT Logo" 
+          style={{ 
+            maxWidth: '120px', 
+            height: 'auto', 
+            borderRadius: '0', 
+            background: 'none', 
+            border: 'none', 
+            padding: '0',
+            filter: 'drop-shadow(0 0 8px rgba(255,255,255,0.15))',
+            marginBottom: '0.5rem'
+          }} 
+        />
+        <h1 className="main-header" style={{ fontSize: '2.1rem', textAlign: 'center', marginBottom: '0.25rem' }}>
+          B.P. Poddar Institute of Management & Technology
+        </h1>
+        <p className="sub-header" style={{ fontSize: '1.25rem', fontWeight: '600', color: '#93c5fd', opacity: 1, letterSpacing: '0.02em' }}>
+          🎓 Smart Face-Recognition Attendance Portal
+        </p>
+        <p className="sub-header-muted" style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '0.25rem', letterSpacing: '0.05em' }}>
+          Approved by AICTE, New Delhi & Affiliated to MAKAUT, W.B.
+        </p>
       </div>
 
-      <div className="glass-card">
-        <h2 style={{ marginBottom: '0.5rem', fontWeight: 700 }}>👋 Welcome to B.P.P.I.M.T Attendance System</h2>
-        <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-          A modern, AI-powered system for seamless and secure attendance tracking using client-side facial recognition.
+      <div className="glass-card" style={{ borderLeft: '4px solid var(--primary-hover)' }}>
+        <h2 style={{ marginBottom: '0.5rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <span>👋 Final Year Project Dashboard</span>
+        </h2>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '0.5rem', fontSize: '0.95rem', lineHeight: '1.6' }}>
+          A secure, cloud-enabled web application developed for automated attendance verification utilizing deep neural networks, liveness validation, and MongoDB Atlas database synchronization.
+        </p>
+        <p style={{ color: '#93c5fd', fontSize: '0.85rem', fontWeight: '600', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+          Department of Computer Science & Engineering
         </p>
       </div>
 

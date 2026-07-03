@@ -258,14 +258,22 @@ app.post('/api/attendance/mark', async (req, res) => {
   }
 
   try {
-    // Force Indian Standard Time (IST = UTC + 5:30) timezone calculations
-    const now = new Date();
-    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-    const istTime = new Date(utc + (3600000 * 5.5));
-
-    const pad = (n) => String(n).padStart(2, '0');
-    const todayStr = `${istTime.getFullYear()}-${pad(istTime.getMonth() + 1)}-${pad(istTime.getDate())}`; // YYYY-MM-DD in IST
-    const dateTimeStr = `${todayStr} ${pad(istTime.getHours())}:${pad(istTime.getMinutes())}:${pad(istTime.getSeconds())}`; // YYYY-MM-DD HH:MM:SS in IST
+    // Robust Indian Standard Time (IST) formatting using native Intl.DateTimeFormat
+    const formatter = new Intl.DateTimeFormat('en-ZA', {
+      timeZone: 'Asia/Kolkata',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    });
+    
+    const formatted = formatter.format(new Date());
+    const [datePart, timePart] = formatted.split(', ');
+    const todayStr = datePart.replace(/\//g, '-'); // YYYY-MM-DD
+    const dateTimeStr = `${todayStr} ${timePart}`; // YYYY-MM-DD HH:MM:SS
 
     const logs = await Attendance.find({ id });
 

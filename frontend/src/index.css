@@ -1,15 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  --bg-dark: #090d16;
-  --bg-gradient: radial-gradient(circle at top right, #1a164b, #090d16, #020408);
-  --card-bg: rgba(17, 25, 40, 0.65);
+  --bg-dark: #080c14;
+  --bg-gradient: radial-gradient(circle at top right, #121829, #080c14, #020408);
+  --card-bg: rgba(13, 20, 35, 0.7);
   --card-border: rgba(255, 255, 255, 0.08);
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
-  --primary: #8b5cf6;
-  --primary-hover: #a78bfa;
-  --primary-glow: rgba(139, 92, 246, 0.35);
+  --primary: #2e3092; /* B.P. Poddar Navy Blue */
+  --primary-hover: #3b82f6; /* Accent Blue */
+  --primary-glow: rgba(46, 48, 146, 0.45);
   --secondary: #3b82f6;
   --danger: #ef4444;
   --success: #10b981;
@@ -203,7 +203,7 @@ body {
 .info-card h3 {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #a78bfa;
+  color: var(--primary-hover);
   margin-bottom: 0.75rem;
   display: flex;
   align-items: center;
@@ -447,7 +447,7 @@ body {
   background: rgba(9, 13, 22, 0.5);
   padding: 1rem 1.25rem;
   font-weight: 600;
-  color: #a78bfa;
+  color: var(--primary-hover);
   border-bottom: 1px solid var(--card-border);
 }
 

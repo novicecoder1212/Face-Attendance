@@ -99,9 +99,19 @@ function App() {
       <div className="app-container">
         {/* Sidebar Nav */}
         <aside className="sidebar">
-          <div className="sidebar-header">
-            <h2 className="sidebar-title">✨ Attendance System</h2>
-            <div className="sub-header-muted">BPPIMT Face Portal</div>
+          <div className="sidebar-header" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
+            <img 
+              src="/bppimt_logo.png" 
+              alt="BPPIMT Logo" 
+              style={{ 
+                maxWidth: '65px', 
+                height: 'auto', 
+                filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.1))',
+                marginBottom: '0.25rem'
+              }} 
+            />
+            <h2 className="sidebar-title" style={{ fontSize: '1.15rem', fontWeight: '800' }}>BPPIMT Portal</h2>
+            <div className="sub-header-muted" style={{ fontSize: '0.75rem', fontWeight: '600' }}>CSE Face-Attendance</div>
           </div>
           
           <div className="sidebar-divider"></div>
