@@ -9,7 +9,8 @@ import {
   Settings,
   LogOut,
   Sun,
-  Moon
+  Moon,
+  User
 } from 'lucide-react';
 
 import Dashboard from './pages/Dashboard';
@@ -174,38 +175,26 @@ function App() {
               </li>
             </ul>
 
-            <div className="theme-switch-sidebar-container" style={{ marginTop: 'auto', paddingTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.12)' }}>
+            {/* Professor Profile Card at bottom of sidebar */}
+            <div className="sidebar-profile-card" style={{ marginTop: 'auto', paddingTop: '1.25rem', borderTop: '1px solid rgba(255,255,255,0.12)', textAlign: 'left' }}>
+              <div className="profile-name" style={{ color: '#ffffff', fontSize: '0.95rem', fontWeight: '700' }}>Prof. RK Sen</div>
+              <div className="profile-role" style={{ color: '#93c5fd', fontSize: '0.8rem', fontWeight: '600', textTransform: 'uppercase', marginTop: '0.15rem' }}>Assistant Professor</div>
+              <div className="profile-dept" style={{ color: '#cbd5e1', fontSize: '0.75rem', marginTop: '0.1rem' }}>Computer Science & Eng.</div>
+              
               <button 
-                className="theme-switch-btn" 
-                onClick={() => setIsDarkMode(!isDarkMode)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.75rem',
-                  width: '100%',
-                  padding: '0.85rem 1.25rem',
-                  background: 'rgba(255, 255, 255, 0.08)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
-                  color: '#ffffff',
-                  borderRadius: '12px',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  fontFamily: 'var(--font-main)'
+                className="logout-btn" 
+                onClick={handleLogout}
+                style={{ 
+                  marginTop: '0.75rem', 
+                  padding: '0.65rem 1rem', 
+                  fontSize: '0.8rem',
+                  background: 'rgba(239, 68, 68, 0.15)',
+                  border: '1px solid rgba(239, 68, 68, 0.25)',
+                  color: '#fca5a5'
                 }}
               >
-                {isDarkMode ? (
-                  <>
-                    <Sun size={16} color="#fca5a5" />
-                    <span>Day Mode</span>
-                  </>
-                ) : (
-                  <>
-                    <Moon size={16} color="#93c5fd" />
-                    <span>Night Mode</span>
-                  </>
-                )}
+                <LogOut size={14} />
+                <span>Log Out</span>
               </button>
             </div>
           </nav>
@@ -213,37 +202,37 @@ function App() {
 
         {/* Main Content Area */}
         <main className="main-content" style={{ position: 'relative' }}>
-          {/* User Profile Circular Dropdown Trigger */}
+          {/* Day/Night Theme Switch circular trigger */}
           <div className="profile-menu-container">
             <button 
               className="profile-avatar-btn" 
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              title="Teacher Portal Options"
+              title="Theme Switch Options"
             >
-              T
+              <User size={18} />
             </button>
             
             {dropdownOpen && (
-              <div className="profile-dropdown-card">
-                <div className="profile-details">
-                  <div className="profile-name">Prof. RK Sen</div>
-                  <div className="profile-role">Assistant Professor</div>
-                  <div className="profile-dept">Computer Science & Eng.</div>
+              <div className="profile-dropdown-card" style={{ width: '220px' }}>
+                <div className="dropdown-item" style={{ padding: '0.25rem 0' }}>
+                  <span className="dropdown-label">Theme Mode</span>
+                  <button 
+                    className="theme-switch-btn" 
+                    onClick={() => setIsDarkMode(!isDarkMode)}
+                  >
+                    {isDarkMode ? (
+                      <>
+                        <Sun size={14} color="#fca5a5" />
+                        <span>Day Mode</span>
+                      </>
+                    ) : (
+                      <>
+                        <Moon size={14} color="#3b82f6" />
+                        <span>Night Mode</span>
+                      </>
+                    )}
+                  </button>
                 </div>
-
-                <div className="sidebar-divider" style={{ margin: '0.25rem 0', background: 'var(--card-border)' }}></div>
-                
-                <button 
-                  className="logout-btn" 
-                  onClick={() => {
-                    setDropdownOpen(false);
-                    handleLogout();
-                  }}
-                  style={{ padding: '0.65rem 1rem', fontSize: '0.85rem' }}
-                >
-                  <LogOut size={14} />
-                  <span>Log Out</span>
-                </button>
               </div>
             )}
           </div>
